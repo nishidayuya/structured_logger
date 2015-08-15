@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'parameterized_logger/version'
+require 'structured_logger/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "parameterized_logger"
-  spec.version       = ParameterizedLogger::VERSION
+  spec.name          = "structured_logger"
+  spec.version       = StructuredLogger::VERSION
   spec.authors       = ["Yuya.Nishida."]
   spec.email         = ["yuya@j96.org"]
   spec.description   = %q{TODO: Write a gem description}

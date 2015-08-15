@@ -1,4 +1,4 @@
-# ParameterizedLogger
+# StructuredLogger
 
 TODO: Write a gem description
 
@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'parameterized_logger'
+    gem 'structured_logger'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install parameterized_logger
+    $ gem install structured_logger
 
 ## Usage
 
