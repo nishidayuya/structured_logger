@@ -21,5 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "guard-bundler"
+  spec.add_development_dependency "guard-test"
+  spec.add_development_dependency "mocha"
   spec.add_development_dependency "pry-byebug"
 end
