@@ -1,6 +1,6 @@
 # StructuredLogger
 
-TODO: Write a gem description
+A structured logger with Ruby's Logger interface.
 
 ## Installation
 

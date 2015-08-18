@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = StructuredLogger::VERSION
   spec.authors       = ["Yuya.Nishida."]
   spec.email         = ["yuya@j96.org"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.summary       = "A structured logger with Ruby's Logger interface."
   spec.homepage      = "https://github.com/nishidayuya/structured_logger"
   spec.license       = "X11"
 
