@@ -18,6 +18,8 @@ Or install it yourself as:
 
 ## Usage
 
+We can write log with parameters.
+
 ```ruby
 t = Time.now; sleep(0.1)
 l = StructuredLogger.new(STDOUT)
@@ -27,6 +29,18 @@ l.debug("processed request", started_at: t, elapsed_sec: Time.now - t, status: "
 
 l.debug { ["processed request", started_at: t, elapsed_sec: Time.now - t, status: "ok"] }
 #=> D, [2015-08-21T05:15:00.214480 #8416] DEBUG -- : processed request: started_at=2015-08-21 05:15:00 +0900 elapsed_sec=0.100193648 status="ok"
+```
+
+`StructuredLogger` instance methods have Ruby's `Logger` interface. So, we can replace Ruby's `Logger` to `StructuredLogger`.
+
+```ruby
+l = Logger.new(STDOUT)
+l.error("Something happend")
+#=> E, [2015-08-25T06:43:18.244950 #23623] ERROR -- : Something happend
+
+l = StructuredLogger.new(STDOUT)
+l.error("Something happend")
+#=> E, [2015-08-25T06:43:47.798889 #23623] ERROR -- : Something happend
 ```
 
 ## Development
