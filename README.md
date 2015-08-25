@@ -2,6 +2,8 @@
 
 A structured logger with Ruby's Logger interface.
 
+[![License X11](https://img.shields.io/badge/license-X11-brightgreen.svg)](https://raw.githubusercontent.com/nishidayuya/structured_logger/master/LICENSE.txt)
+
 ## Installation
 
 Add this line to your application's Gemfile:
