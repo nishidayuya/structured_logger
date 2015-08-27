@@ -3,6 +3,7 @@
 A structured logger with Ruby's Logger interface.
 
 [![License X11](https://img.shields.io/badge/license-X11-brightgreen.svg)](https://raw.githubusercontent.com/nishidayuya/structured_logger/master/LICENSE.txt)
+[![Dependency Status](https://gemnasium.com/nishidayuya/structured_logger.svg)](https://gemnasium.com/nishidayuya/structured_logger)
 [![Build Status](https://travis-ci.org/nishidayuya/structured_logger.svg?branch=master)](https://travis-ci.org/nishidayuya/structured_logger)
 
 ## Installation
