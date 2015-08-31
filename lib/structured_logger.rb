@@ -4,8 +4,7 @@ require "forwardable"
 class StructuredLogger
   extend Forwardable
   include Logger::Severity
-
-  VERSION = "0.0.0"
+  autoload :VERSION, "structured_logger/version"
 
   attr_accessor :formatter
 
