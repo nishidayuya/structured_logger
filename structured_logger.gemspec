@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard-test"
   spec.add_development_dependency "mocha"
   spec.add_development_dependency "pry-byebug"
+  spec.add_development_dependency "codeclimate-test-reporter"
 end
