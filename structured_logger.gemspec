@@ -1,7 +1,7 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "structured_logger"
+require 'structured_logger/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "structured_logger"
@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard-test"
   spec.add_development_dependency "mocha"
   spec.add_development_dependency "pry-byebug"
+  spec.add_development_dependency "codeclimate-test-reporter"
 end
