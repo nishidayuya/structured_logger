@@ -6,6 +6,7 @@ A structured logger with Ruby's Logger interface.
 [![Gem Version](https://badge.fury.io/rb/structured_logger.svg)](http://badge.fury.io/rb/structured_logger)
 [![Dependency Status](https://gemnasium.com/nishidayuya/structured_logger.svg)](https://gemnasium.com/nishidayuya/structured_logger)
 [![Build Status](https://travis-ci.org/nishidayuya/structured_logger.svg?branch=master)](https://travis-ci.org/nishidayuya/structured_logger)
+[![Coverage Status](https://codeclimate.com/github/nishidayuya/structured_logger/badges/coverage.svg)](https://codeclimate.com/github/nishidayuya/structured_logger/coverage)
 [![Code Climate](https://codeclimate.com/github/nishidayuya/structured_logger/badges/gpa.svg)](https://codeclimate.com/github/nishidayuya/structured_logger)
 
 ## Installation
