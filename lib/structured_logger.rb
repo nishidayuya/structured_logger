@@ -14,7 +14,8 @@ class StructuredLogger
 
   def initialize(io)
     @logger = Logger.new(io)
-    @formatter = Formatter.new
+    @formatter = nil
+    @default_formatter = Formatter.new
   end
 
   def_delegators :@logger,
@@ -22,7 +23,7 @@ class StructuredLogger
     :level, :level=,
     :debug?, :info?, :warn?, :error?, :fatal?
 
-  def_delegators :@formatter, :datetime_format, :datetime_format=
+  def_delegators :@default_formatter, :datetime_format, :datetime_format=
 
   def debug(*args, &block)
     add(DEBUG, *args, &block)
@@ -51,7 +52,7 @@ class StructuredLogger
     if block_given?
       *args = yield
     end
-    s = @formatter.call(severity, Time.now, *args)
+    s = (@formatter || @default_formatter).call(severity, Time.now, *args)
     @logger << s
   end
 

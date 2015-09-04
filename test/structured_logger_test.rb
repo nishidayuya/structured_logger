@@ -140,6 +140,10 @@ EOS
       @logger = Logger.new(@logger_io)
     end
 
+    def test_formatter__same_default
+      assert_equal(@logger.formatter, @l.formatter)
+    end
+
     def test_add__message_by_args
       args = [Logger::DEBUG, "Something happend."]
       @logger.add(*args)
