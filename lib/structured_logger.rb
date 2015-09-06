@@ -5,6 +5,7 @@ class StructuredLogger
   extend Forwardable
   include Logger::Severity
   autoload :VERSION, "structured_logger/version"
+  autoload :TaggedLogging, "structured_logger/tagged_logging"
 
   attr_accessor :formatter
 
