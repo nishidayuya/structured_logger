@@ -50,6 +50,16 @@ l.error("Something happend")
 #=> E, [2015-08-25T06:43:47.798889 #23623] ERROR -- : Something happend
 ```
 
+structured_logger.gem includes `StructuredLogger::TaggedLogging`, such as `ActiveSupport::TaggedLogging`.
+
+```ruby
+l = StrucuturedLogger::TaggedLogging.new(StructuredLogger.new(STDOUT))
+l.tagged(:crawler) do
+  l.warn("malformed file format", path: downloaded_path.to_s)
+end
+#=> W, [2015-11-02T20:24:57.747819 #11898]  WARN -- : [crawler] malformed file format: path="/opt/app/tmp/1234.bin"
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake false` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

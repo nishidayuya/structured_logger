@@ -1,4 +1,5 @@
 require "test_helper"
+require "structured_logger"
 
 class StructuredLoggerTest < Test::Unit::TestCase
   setup do
