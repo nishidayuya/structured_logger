@@ -85,7 +85,7 @@ class StructuredLogger
       time.strftime(@datetime_format || "%Y-%m-%dT%H:%M:%S.%6N".freeze)
     end
 
-    def format_message(message = nil, **options)
+    def format_message(message, **options)
       return [message, format_options(options)].compact.join(": ")
     end
 
