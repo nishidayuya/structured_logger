@@ -5,8 +5,8 @@ class StructuredLogger
   extend Forwardable
   include Logger::Severity
   autoload :VERSION, "structured_logger/version"
-  autoload :TaggedLogging, "structured_logger/tagged_logging"
 
+  attr_accessor :progname
   attr_accessor :formatter
 
   def self.severity_name(severity)
@@ -15,8 +15,10 @@ class StructuredLogger
 
   def initialize(io)
     @logger = Logger.new(io)
+    @progname = nil
     @formatter = nil
-    @default_formatter = Formatter.new
+    @default_formatter = Logger::Formatter.new
+    @arguments_formatter = ArgumentsFormatter.new
   end
 
   def_delegators :@logger,
@@ -53,39 +55,28 @@ class StructuredLogger
     if block_given?
       *args = yield
     end
-    s = (@formatter || @default_formatter).call(severity, Time.now, *args)
+    s_severity = format_severity(severity)
+    time = Time.now
+    message = @arguments_formatter.call(s_severity, time, @progname, args)
+    s = (@formatter || @default_formatter).call(s_severity, time, @progname,
+                                                message)
     @logger << s
   end
 
-  # Default formatter for StructuredLogger.
-  class Formatter
-    attr_accessor :datetime_format
+  private
 
-    def initialize
-      @datetime_format = nil
-    end
+  def format_severity(severity)
+    return Logger::SEV_LABEL[severity] || "ANY"
+  end
 
-    def call(severity, time, message = nil, **options)
-      severity_name = StructuredLogger.severity_name(severity)
-      return FORMAT % {
-        short_severity_name: severity_name[0, 1],
-        datetime: format_datetime(time),
-        pid: Process.pid,
-        severity_name: severity_name,
-        program_name: "",
-        message: format_message(message, **options),
-      }
+  class ArgumentsFormatter
+    def call(severity, time, progname, args)
+      return format_body(*args)
     end
 
     private
 
-    FORMAT = "%{short_severity_name}, [%{datetime} #%{pid}] %<severity_name>5s -- %{program_name}: %{message}\n"
-
-    def format_datetime(time)
-      time.strftime(@datetime_format || "%Y-%m-%dT%H:%M:%S.%6N".freeze)
-    end
-
-    def format_message(message, **options)
+    def format_body(message = nil, **options)
       return [message, format_options(options)].compact.join(": ")
     end
 

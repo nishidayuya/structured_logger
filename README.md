@@ -50,14 +50,16 @@ l.error("Something happend")
 #=> E, [2015-08-25T06:43:47.798889 #23623] ERROR -- : Something happend
 ```
 
-structured_logger.gem includes `StructuredLogger::TaggedLogging`, such as `ActiveSupport::TaggedLogging`.
+Also we can use it with `ActiveSupport::TaggedLogging`.
 
 ```ruby
-l = StrucuturedLogger::TaggedLogging.new(StructuredLogger.new(STDOUT))
+l = ActiveSupport::TaggedLogging.new(StructuredLogger.new(STDOUT))
 l.tagged(:crawler) do
-  l.warn("malformed file format", path: downloaded_path.to_s)
+  l.tagged(:downloading) do
+    l.warn("malformed file format", path: downloaded_path.to_s)
+  end
 end
-#=> W, [2015-11-02T20:24:57.747819 #11898]  WARN -- : [crawler] malformed file format: path="/opt/app/tmp/1234.bin"
+#=> [crawler] [downloading] malformed file format: path="/opt/app/tmp/1234.bin"
 ```
 
 ## Development
