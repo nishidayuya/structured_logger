@@ -18,7 +18,7 @@ class StructuredLogger
     @progname = nil
     @formatter = nil
     @default_formatter = Logger::Formatter.new
-    @arguments_formatter = ArgumentsFormatter.new
+    @argument_formatter = ArgumentFormatter.new
   end
 
   def_delegators :@logger,
@@ -55,11 +55,11 @@ class StructuredLogger
     block_result = block_given? ? yield : nil
     s_severity = format_severity(severity)
     time = Time.now
-    message = @arguments_formatter.call(severity: s_severity,
-                                        time: time,
-                                        progname: @progname,
-                                        args: args,
-                                        block_result: block_result)
+    message = @argument_formatter.call(severity: s_severity,
+                                       time: time,
+                                       progname: @progname,
+                                       args: args,
+                                       block_result: block_result)
     s = (@formatter || @default_formatter).call(s_severity, time, @progname,
                                                 message)
     @logger << s
@@ -71,7 +71,7 @@ class StructuredLogger
     return Logger::SEV_LABEL[severity] || "ANY"
   end
 
-  class ArgumentsFormatter
+  class ArgumentFormatter
     def call(severity: _, time: _, progname: _,
              args: args(), block_result: block_result())
       if block_result
