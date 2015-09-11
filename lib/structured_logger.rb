@@ -52,12 +52,14 @@ class StructuredLogger
     if level > severity
       return
     end
-    if block_given?
-      *args = yield
-    end
+    block_result = block_given? ? yield : nil
     s_severity = format_severity(severity)
     time = Time.now
-    message = @arguments_formatter.call(s_severity, time, @progname, args)
+    message = @arguments_formatter.call(severity: s_severity,
+                                        time: time,
+                                        progname: @progname,
+                                        args: args,
+                                        block_result: block_result)
     s = (@formatter || @default_formatter).call(s_severity, time, @progname,
                                                 message)
     @logger << s
@@ -70,8 +72,16 @@ class StructuredLogger
   end
 
   class ArgumentsFormatter
-    def call(severity, time, progname, args)
-      return format_body(*args)
+    def call(severity: _, time: _, progname: _,
+             args: args(), block_result: block_result())
+      if block_result
+        # {foo: "bar"} => [{foo: bar}]
+        # ["msg", {foo: "bar"}] => ["msg", {foo: "bar"}]
+        *args_and_block_result = block_result
+      else
+        args_and_block_result = args
+      end
+      return format_body(*args_and_block_result)
     end
 
     private
