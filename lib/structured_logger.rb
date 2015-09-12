@@ -73,7 +73,8 @@ class StructuredLogger
 
   class ArgumentFormatter
     def call(severity: _, time: _, progname: _,
-             args: args(), block_result: block_result())
+             args: args(), block_result: block_result(),
+             **_) # for ignoring future arguments
       if block_result
         # {foo: "bar"} => [{foo: bar}]
         # ["msg", {foo: "bar"}] => ["msg", {foo: "bar"}]
