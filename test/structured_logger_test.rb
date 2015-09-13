@@ -1,6 +1,8 @@
 require "test_helper"
 require "structured_logger"
 
+require "tempfile"
+
 class StructuredLoggerTest < Test::Unit::TestCase
   setup do
     Time.stubs(:now).returns(NOW)
@@ -72,6 +74,27 @@ class StructuredLoggerTest < Test::Unit::TestCase
                    ' status="ok"' +
                    "\n",
                    @io.string)
+    end
+  end
+
+  sub_test_case("StructuredLogger for file path") do
+    def test_debug
+      t = Time.mktime(2015, 8, 16, 2, 13, 15)
+      Tempfile.open("structured_logger_test") do |f|
+        f.close
+        l = StructuredLogger.new(f.path)
+        l.debug("processed request",
+                started_at: t,
+                elapsed_sec: 0.03,
+                status: "ok")
+        assert_equal(DEBUG_HEADER +
+                     " processed request:" +
+                     " started_at=#{t.inspect}" +
+                     " elapsed_sec=0.03" +
+                     ' status="ok"' +
+                     "\n",
+                     File.read(f.path))
+      end
     end
   end
 
