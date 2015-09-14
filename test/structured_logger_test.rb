@@ -2,6 +2,7 @@ require "test_helper"
 require "structured_logger"
 
 require "tempfile"
+require "active_support/tagged_logging"
 
 class StructuredLoggerTest < Test::Unit::TestCase
   setup do
@@ -192,6 +193,23 @@ EOS
       test(method_name) do
         assert_equal(@logger.send(method_name), @l.send(method_name))
       end
+    end
+  end
+
+  sub_test_case("StructuredLogger with ActiveSupport::TaggedLogging") do
+    def test_debug
+      t = Time.mktime(2015, 8, 16, 2, 13, 15)
+      l = ActiveSupport::TaggedLogging.new(@l)
+      l.tagged(:crawler) do
+        l.tagged(:downloading) do
+          l.warn("malformed file format",
+                 path: "/path/to/downloaded_files/1.bin")
+        end
+      end
+      assert_equal("[crawler] [downloading] " +
+                   "malformed file format:" +
+                   " path=\"/path/to/downloaded_files/1.bin\"\n",
+                   @io.string)
     end
   end
 
