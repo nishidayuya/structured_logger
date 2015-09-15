@@ -9,10 +9,6 @@ class StructuredLogger
   attr_accessor :progname
   attr_accessor :formatter
 
-  def self.severity_name(severity)
-    return Logger::SEV_LABEL[severity] || "ANY"
-  end
-
   def initialize(io)
     @logger = Logger.new(io)
     @progname = nil
