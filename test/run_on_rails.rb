@@ -22,8 +22,10 @@ def setup
   run("bundle")
   File.write("config/initializers/structured_logger.rb", <<'EOS')
 # Use StructuredLogger instead of Logger.
-Rails.logger = ActiveSupport::TaggedLogging.new(StructuredLogger.new("log/#{Rails.env}.log"))
-Rails.logger.formatter = ::Logger::Formatter.new
+l = StructuredLogger.new("log/#{Rails.env}.log")
+l.formatter = ::Logger::Formatter.new
+l = ActiveSupport::TaggedLogging.new(l)
+Rails.logger = l
 EOS
 end
 
@@ -35,7 +37,7 @@ def check
   puts(logs)
 
   puts
-  if /DEBUG -- : abc: foo="bar"$/.match(logs)
+  if /DEBUG -- : \[tag1\] abc: foo="bar"$/.match(logs)
     puts("OK.")
     return 0
   else
@@ -46,6 +48,8 @@ end
 
 setup
 run(*%w(bin/rails runner), <<EOS)
-Rails.logger.debug("abc", foo: "bar")
+Rails.logger.tagged(:tag1) do
+  Rails.logger.debug("abc", foo: "bar")
+end
 EOS
 exit(check)
