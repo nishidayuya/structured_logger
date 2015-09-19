@@ -11,6 +11,8 @@ A structured logger with Ruby's Logger interface.
 
 ## Installation
 
+### General Ruby application
+
 Add this line to your application's Gemfile:
 
     gem 'structured_logger'
@@ -22,6 +24,27 @@ And then execute:
 Or install it yourself as:
 
     $ gem install structured_logger
+
+### Rails application
+
+Add to `Gemfile` (see previous section) and run `bundle`.
+
+Write `config/initializers/structured_logger.rb`.
+
+```ruby
+# Use StructuredLogger instead of Logger.
+l = StructuredLogger.new("log/#{Rails.env}.log")
+
+# If you want timestamp and PID with ActiveSupport::TaggedLogging, enable next line.
+#l.formatter = ::Logger::Formatter.new
+
+# If you want tagging support, enable next line.
+#l = ActiveSupport::TaggedLogging.new(l)
+
+Rails.logger = l
+```
+
+Play it!
 
 ## Usage
 
