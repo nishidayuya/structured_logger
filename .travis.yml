@@ -5,6 +5,9 @@ rvm:
   - 2.1
   - 2.0.0
 before_install: gem install bundler -v 1.10.6
-addons:
-  code_climate:
-    repo_token: 1e839f7418a8932b0a0b8e944d265ef1ad490e6866d03cd0e85524206c7eaef8
+after_script:
+#  - if test pull_request != "$TRAVIS_EVENT_TYPE" -a master = "$TRAVIS_BRANCH"
+#    then
+#      bundle exec codeclimate-test-reporter
+#    fi
+  - bundle exec codeclimate-test-reporter
